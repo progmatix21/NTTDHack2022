@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Health Predictor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../Static/w3_style.css">
+<style>
+</style>
+<script src=""></script>
+<body>
+
+<!-- <img src="img_la.jpg" alt="LA" style="width:100%"> -->
+
+<!-- Header -->
+{% include 'header_inc.html' %}
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-border w3-card-4 w3-light-grey">
+  <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
+  <a href="/diab_intro" class="w3-bar-item w3-button w3-mobile">Diabetes</a>
+  <a href="/cardio_intro" class="w3-bar-item w3-button w3-mobile">Cardiovascular</a>
+</div>
+
+<!-- Text Body -->
+<div class="w3-center">
+<h1>Disclaimer</h1>
+</div>
+<div class="w3-panel w3-border w3-border-blue">
+<p>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</p>
+<p>
+This software is a submission to the NTT Data AI Hackathon 2022 and is for demo
+purposes only. 
+</p>
+<p>
+The software does not offer medical opinion nor is it a substitute for the same.
+Please consult your doctor.
+</p>
+<p>
+There is a finite non-negligible probability of an overly optimistic or pessimistic
+estimate by the software. This could be due to the limitations of the machine learning
+model, the training data, or errors in user-entered data.
+</p>
+</div>
+<!-- Footer -->
+{% include 'footer_inc.html' %}
+</body>
+</html> 

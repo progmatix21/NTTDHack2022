@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Health Predictor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../Static/w3_style.css">
+<style>
+</style>
+<script src=""></script>
+<body>
+
+<!-- <img src="img_la.jpg" alt="LA" style="width:100%"> -->
+
+<!-- Header -->
+{% include 'header_inc.html' %}
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-border w3-card-4 w3-light-grey">
+  <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
+  <a href="/diab_intro" class="w3-bar-item w3-button w3-mobile">Diabetes</a>
+  <a href="/cardio_intro" class="w3-bar-item w3-button w3-mobile">Cardiovascular</a>
+</div>
+
+<!-- Text Body -->
+<!--Flask app provides parameter values-->
+<h4 class="w3-center">Based on the data submitted, the probability of <br> 
+<b>{{ disease }} disease:</b></h4> <br> 
+<div class="w3-xxlarge w3-center">{{ prob }}% </div>
+
+<!-- Footer -->
+{% include 'footer_inc.html' %}
+</body>
+</html> 

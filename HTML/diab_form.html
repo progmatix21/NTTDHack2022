@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Health Predictor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../Static/w3_style.css">
+<style>
+</style>
+<script src=""></script>
+<body>
+
+<!-- <img src="img_la.jpg" alt="LA" style="width:100%"> -->
+
+<!-- Header -->
+{% include 'header_inc.html' %}
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-border w3-card-4 w3-light-grey">
+  <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
+  <a href="/diab_intro" class="w3-bar-item w3-button w3-mobile">Diabetes</a>
+  <a href="/cardio_intro" class="w3-bar-item w3-button w3-mobile">Cardiovascular</a>
+</div>
+
+<!-- Form Body -->
+ <div class="w3-card-4">
+
+<div class="w3-container w3-light-blue">
+  <h5>Diabetic health parameters</h5>
+</div>
+
+<form action="/proc_diab" class="w3-container" method="POST" >
+
+<div class="w3-panel w3-padding-8"></div>
+
+<label><b>Glucose</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="glucose">
+<hr>
+<label><b>Age</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="age">
+<hr>
+<label><b>Total cholesterol</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="chol">
+<hr>
+<label><b>HDL cholesterol</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="hdlchol">
+<hr>
+<label><b>Systolic Blood Pressure</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="sbp">
+<hr>
+<label><b>Weight(kg)</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="weight">
+<hr>
+<label><b>Height(cm)</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="height">
+<hr>
+<label><b>Waist(cm)</b></label>
+<input class="w3-input w3-border w3-light-grey" style="width:10em" type="number" name="waist">
+
+<div class="w3-panel w3-padding-8"></div>
+
+<div class="w3-container w3-center">
+    <!--<a href="#" class="w3-button w3-white w3-round-xlarge w3-xxxlarge">&#9989;</a>-->
+    <input class="w3-button w3-light-blue w3-round-xlarge w3-xxlarge" type="submit" value="Submit">
+
+</div>
+
+<div class="w3-panel w3-padding-8"></div>
+
+</form>
+
+</div> 
+<div class="w3-panel w3-padding-16"></div>
+
+<!-- Footer -->
+{% include 'footer_inc.html' %}
+</body>
+</html> 
