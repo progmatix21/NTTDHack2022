@@ -11,12 +11,24 @@ conditions based on user-provided inputs.
 
  - Datasets
  - Jupyter Notebooks for training models (in progress)
- - Web-app (in progress)
+ - Documentation
+ - Web-app
+
+### Prerequisites and Configuration
+
+ - The app and the ML models are developed using Anaconda Data Science platform 4.11.0 
+ - No configuration is needed unless you want to update the models with new data
+ or further tune the model hyperparameters
+ - To tune the models, use the Jupyter Lab notebooks.
  
 ### Installation
 
-(TBD)
+ - Clone or unzip this repository in your folder
+ - Run `healthpred.py`. This will start a Flask web server on port 8080
+ - Access this app via your browser at `localhost:8080`
 
 ### Usage
 
-(TBD)
+ - The webapp starting page has usage instructions
+ 
+
