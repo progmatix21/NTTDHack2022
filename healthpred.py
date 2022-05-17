@@ -29,9 +29,15 @@ def cardio_intro():
     return render_template('cardio_intro.html')
     #goes to route /cardio/<mode> where mode is form or qr.
 
-@app.route("/diab_form")  #actual diab form
-def diab_form():
-    return render_template('diab_form.html')
+
+#This route can take either a form or a qr upload
+@app.route("/diab/<mode>")  #actual diab form
+def diab_form(mode):
+	if(mode == "form"):  #show entry form
+		return render_template('diab_form.html')
+	elif(mode == "qr"):  #show qr code upload form
+		return render_template('qr_form.html', error_msg = "", 
+        condition = 'diabetic', action = '/proc_diab')
 
 #This route can take either a form or a qr upload
 @app.route("/cardio/<mode>")  
@@ -106,37 +112,61 @@ def proc_cardio():
         
     return render_template('result.html', disease = 'cardiovascular', prob = result)
 
-@app.route("/proc_diab", methods=["GET","POST"])
+def predict_diab(param_dict):
+    #Process dict parameters and predict probability of disease using ML model
+    #get all form values
+	
+	#get all form values    
+	frm_glucose = int(param_dict['glucose'])
+	frm_age = int(param_dict['age'])
+	frm_chol = int(param_dict['chol'])
+	frm_hdlchol = int(param_dict['hdlchol'])
+	frm_sbp = int(param_dict['sbp'])
+	frm_weight = int(param_dict['weight'])
+	frm_height = int(param_dict['height'])
+	frm_waist = int(param_dict['waist'])
+	
+	#Process all form values e.g. cm to inches etc. 
+	glucose = frm_glucose 
+	age = frm_age
+	systolic_bp = frm_sbp
+	chol_hdl_ratio = frm_chol/frm_hdlchol
+	bmi = frm_weight/(frm_height/100)**2
+	cholesterol = frm_chol
+	waist = frm_waist/2.54  #has to be in inches
+	weight = frm_weight*2.2 #convert kg to pounds
+	
+	#Create a test df with this data.        
+	testdf = DataFrame([[glucose, age, systolic_bp, chol_hdl_ratio, bmi, cholesterol,waist, weight]])
+	testdf.columns = ['glucose', 'age', 'systolic_bp', 'chol_hdl_ratio', 'bmi', 'cholesterol','waist', 'weight']
+	#Now predict the probability based on these values.
+	result = round(clf_diab.predict_proba(testdf)[0][1],2)*100 # heirarchical list
+	result = int(result)  #remove the decimal point
+	
+	return result
+
+
+@app.route("/proc_diab", methods=["POST"])
 def proc_diab():
     error = None
-    if request.method == 'POST':
-        #get all form values    
-        frm_glucose = int(request.form['glucose'])
-        frm_age = int(request.form['age'])
-        frm_chol = int(request.form['chol'])
-        frm_hdlchol = int(request.form['hdlchol'])
-        frm_sbp = int(request.form['sbp'])
-        frm_weight = int(request.form['weight'])
-        frm_height = int(request.form['height'])
-        frm_waist = int(request.form['waist'])
         
-        #Process all form values e.g. cm to inches etc. 
-        glucose = frm_glucose 
-        age = frm_age
-        systolic_bp = frm_sbp
-        chol_hdl_ratio = frm_chol/frm_hdlchol
-        bmi = frm_weight/(frm_height/100)**2
-        cholesterol = frm_chol
-        waist = frm_waist/2.54  #has to be in inches
-        weight = frm_weight*2.2 #convert kg to pounds
-        
-        #Create a test df with this data.        
-        testdf = DataFrame([[glucose, age, systolic_bp, chol_hdl_ratio, bmi, cholesterol,waist, weight]])
-        testdf.columns = ['glucose', 'age', 'systolic_bp', 'chol_hdl_ratio', 'bmi', 'cholesterol','waist', 'weight']
-        #Now predict the probability based on these values.
-        result = round(clf_diab.predict_proba(testdf)[0][1],2)*100 # heirarchical list
-        result = int(result)  #remove the decimal point
-        
+    if (request.form.get('mode','form') == 'qr'):  #request is from qrform upload
+        f = request.files['qrfile']                #reads hidden form field
+        fqfn = os.path.join(UPLOAD_FOLDER+f.filename)
+        f.save(fqfn)
+        try:
+            decoded_dict = decodeqr(fqfn)
+        except:
+            print("QR decode failed.")
+            return render_template('qr_form.html', 
+            error_msg = '''Unable to recognise QR code! <br/>Try again or use the 
+            <a href="/diab/form"><b>form</b></a>.''',
+            condition = 'diabetic', action = '/proc_diab')  # return the qr upload form again
+
+        result = predict_diab(decoded_dict)
+    else: #request is from regular form
+        result = predict_diab(request.form)
+
     return render_template('result.html', disease = 'diabetic', prob = result)
 
 

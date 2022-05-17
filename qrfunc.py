@@ -8,6 +8,7 @@ import ast
 from pyzbar import pyzbar
 
 cardiodict = {'age':55, 'sbp':120, 'dbp':90, 'weight':75, 'height':150, 'chol':150}
+diabdict = {'age':56,'chol':150,'hdlchol':50,'glucose':120,'sbp':130,'weight':75,'height':175,'waist':90}
               
 def get_dict_hash(input_dict):
     '''
@@ -90,11 +91,16 @@ def decodeqr(filename):
         return(dict())  #return empty dict. Signature doesn't agree
         
 if __name__ == "__main__":
-    
-    hdict = dict_hash(cardiodict)  #Sign dict with hash
-    print(hdict)
-    
-    createqr(hdict, "cardio_test.png") #Create hashed dict file
-    print(decodeqr("cardio_test.png"))
+
+	print("QR code generator\n")
+	dict_str = input("Enter a parameter dictionary in Python syntax: ")
+	inp_dict = ast.literal_eval(dict_str)  #create dict object from entered dict string
+	fname = input("Filename to save QR code(with png extension): ")
+	
+	hdict = dict_hash(inp_dict)  #Sign dict with hash
+	print(hdict)
+
+	createqr(hdict, fname) #Create hashed dict file
+	print(decodeqr(fname))
     
 
