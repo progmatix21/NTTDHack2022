@@ -2,8 +2,8 @@
 
 ## AI in Healthcare
 
-This repository is the submission for the hackathon from **team ATR21**.  The
-submission is a web-app based on Machine Learning models trained on cardio
+This is a candidate developed for the hackathon by **team ATR21** during
+the semi-final round.  This is a web-app based on Machine Learning models trained on cardio
 vascular and diabetic data, which can be used to predict the respective
 conditions based on user-provided inputs. 
 
